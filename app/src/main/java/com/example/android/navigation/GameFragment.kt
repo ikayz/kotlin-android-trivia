@@ -100,7 +100,7 @@ class GameFragment : Fragment() {
                         view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
                     }
                 } else {
-
+                    view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment2)
                 }
             }
         }
