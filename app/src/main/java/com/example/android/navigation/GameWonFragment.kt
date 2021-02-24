@@ -34,6 +34,7 @@ class GameWonFragment : Fragment() {
         binding.nextMatchButton.setOnClickListener { view: View ->
             view.findNavController().navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
         }
+        val args = GameWonFragmentArgs.fromBundle(this.arguments as Bundle)
         Toast.makeText(context,
                 "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}",
                 Toast.LENGTH_LONG).show()
@@ -50,14 +51,21 @@ class GameWonFragment : Fragment() {
     }
 
     private fun getShareIntent(): Intent {
-        var args = GameWonFragmentArgs.fromBundle(this.arguments as Bundle)
+        val args = GameWonFragmentArgs.fromBundle(this.arguments as Bundle)
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.setType("text/plain")
                 .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_success_text, args.numCorrect, args.numQuestions))
         return shareIntent
     }
 
-    private fun shareSucces() {
+    private fun shareSuccess() {
         startActivity(getShareIntent())
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item!!.itemId) {
+            R.id.share -> shareSuccess()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
